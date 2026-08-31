@@ -1,0 +1,17 @@
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let approvedTask='';
+function esc(s){return String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.classList.toggle('active',x===b));$$('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.tab));if(b.dataset.tab==='log')loadAudit();if(b.dataset.tab==='settings')loadSettings()});
+$('#close').onclick=()=>window.jared.hidePanel();
+function addMsg(role,text){const d=document.createElement('div');d.className='msg '+(role==='u'?'u':'j');d.innerHTML=`<span>${role==='u'?'YOU':'JARED'}</span><p>${esc(text)}</p>`;$('#messages').appendChild(d);$('#messages').scrollTop=$('#messages').scrollHeight}
+async function send(){const t=$('#chatInput').value.trim();if(!t)return;$('#chatInput').value='';addMsg('u',t);$('#send').disabled=true;const r=await window.jared.chat(t,$('#mode').value);addMsg('j',r.ok?r.text:r.error);$('#send').disabled=false}
+$('#send').onclick=send;$('#chatInput').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
+$('#plan').onclick=async()=>{const task=$('#taskInput').value.trim();if(!task)return;$('#plan').disabled=true;$('#approval').classList.add('hidden');$('#taskResult').classList.add('hidden');const r=await window.jared.planTask(task);$('#plan').disabled=false;if(!r.ok){$('#taskResult').textContent=r.error;$('#taskResult').classList.remove('hidden');return}approvedTask=task;$('#planText').textContent=r.plan;$('#approval').classList.remove('hidden')};
+$('#cancelPlan').onclick=()=>{$('#approval').classList.add('hidden');approvedTask=''};
+$('#approve').onclick=async()=>{if(!approvedTask)return;$('#approval').classList.add('hidden');$('#running').classList.remove('hidden');$('#taskResult').classList.add('hidden');const r=await window.jared.runTask(approvedTask);$('#running').classList.add('hidden');$('#taskResult').textContent=r.ok?r.text:r.error;$('#taskResult').classList.remove('hidden');approvedTask='';loadAudit()};
+$('#stop').onclick=()=>window.jared.stopTask();
+window.jared.onStatus(s=>{$('#hud').textContent=s.text||'';$('#runStatus').textContent=s.text||'Working…';$('#hudDot').style.background=s.state==='idle'?'#55b986':s.state==='thinking'?'#d3ad62':'#9184d9'});
+async function loadSettings(){const s=await window.jared.settingsGet();$('#apiKey').value=s.apiKey||'';$('#model').value=s.model||'claude-sonnet-4-6';$('#maxIterations').value=s.maxIterations||25;$('#launch').checked=!!s.launchAtLogin}
+$('#saveSettings').onclick=async()=>{const s=await window.jared.settingsSave({apiKey:$('#apiKey').value.trim(),model:$('#model').value.trim(),maxIterations:Number($('#maxIterations').value),launchAtLogin:$('#launch').checked,approvalMode:'task'});$('#saveMsg').textContent='Saved.';setTimeout(()=>$('#saveMsg').textContent='',1500)};
+async function loadAudit(){const rows=await window.jared.auditGet();$('#audit').innerHTML=rows.map(r=>`<div class="auditrow"><b>${esc(r.kind||'event')}</b> <small>${esc(new Date(r.ts).toLocaleString())}</small><pre>${esc(r.action?`${r.action} ${JSON.stringify(r.input||{})}`:(r.task||r.error||r.text||''))}</pre></div>`).join('')||'<div class="auditrow">No activity yet.</div>'}
+window.jared.onAudit(()=>{if($('#log').classList.contains('active'))loadAudit()});$('#openLog').onclick=()=>window.jared.openLog();$('#quitApp').onclick=()=>window.jared.quitApp();loadSettings();

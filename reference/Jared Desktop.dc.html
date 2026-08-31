@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-102b3ef0-ee9c-4247-b74f-fa73525ff476/styles.css">
+  <script src="_ds/nocturne-102b3ef0-ee9c-4247-b74f-fa73525ff476/_ds_bundle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <style>
+    body{margin:0;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);overflow:hidden}
+    a{color:var(--color-accent-300)} a:hover{color:var(--color-accent-200)}
+    @keyframes jbob{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+    @keyframes jleg{0%{transform:rotate(-24deg)}100%{transform:rotate(24deg)}}
+    @keyframes jfix{0%{transform:rotate(-18deg)}100%{transform:rotate(42deg)}}
+    @keyframes jeyes{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+    @keyframes jtalk{0%{transform:scaleY(.25)}100%{transform:scaleY(1)}}
+    @keyframes jspin{to{transform:rotate(360deg)}}
+    @keyframes jpulse{0%,100%{opacity:.4}50%{opacity:1}}
+  </style>
+</helmet>
+<div style="height:100vh;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% -20%, var(--color-neutral-800), var(--color-bg) 60%)">
+  <header style="display:flex;align-items:center;gap:12px;padding:10px 24px;border-bottom:1px solid var(--color-neutral-800);background:var(--color-neutral-900)">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 12px var(--color-accent)"></span>
+    <span style="font-family:var(--font-heading);font-weight:500;font-size:14px">JaredOS</span>
+    <span style="font-size:12px;color:var(--color-neutral-400)">he wears every hat in the building</span>
+    <span style="margin-left:auto;font-size:12px;color:var(--color-accent-300);display:flex;align-items:center;gap:6px"><i class="ph ph-activity"></i>{{ statusLine }}</span>
+  </header>
+  <div ref="{{ stageWrapRef }}" style="flex:1;position:relative;min-height:0;overflow:hidden">
+    <div style="position:absolute;left:50%;top:0;width:1140px;height:100%;transform: {{ stageTransform }};transform-origin:top center;margin-left:-570px">
+      <sc-for list="{{ apps }}" as="a" hint-placeholder-count="3">
+        <div class="card" style="position:absolute;left: {{ a.x }}px;top: {{ a.y }}px;width: {{ a.w }}px;padding:0;overflow:hidden;box-shadow:var(--shadow-md)">
+          <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--color-neutral-800);background:var(--color-neutral-900)">
+            <i class="{{ a.icon }}" style="color:var(--color-neutral-300)"></i>
+            <span style="font-size:12.5px;font-weight:500">{{ a.name }}</span>
+            <span style="margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;color: {{ a.badgeColor }}"><i class="{{ a.badgeIcon }}" style="animation: {{ a.badgeAnim }}"></i>{{ a.badgeText }}</span>
+          </div>
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+            <div style="height:8px;width:82%;border-radius:4px;background:var(--color-neutral-800)"></div>
+            <div style="height:8px;width:64%;border-radius:4px;background:var(--color-neutral-800)"></div>
+            <div style="height:8px;width:73%;border-radius:4px;background:var(--color-neutral-800)"></div>
+            <sc-if value="{{ a.showIssue }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11.5px;color: {{ a.issueColor }};display:flex;align-items:center;gap:6px;margin-top:2px"><i class="ph ph-warning-circle"></i>{{ a.issue }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+      <div style="position:absolute;left: {{ jx }}px;top: {{ jy }}px;width:76px;transition:left 1.7s ease-in-out,top 1.7s ease-in-out;z-index:5">
+        <sc-if value="{{ bubbleOn }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;bottom:106px;left:-66px;width:210px;background:var(--color-neutral-800);border:1px solid var(--color-neutral-700);border-radius:var(--radius-lg);padding:10px 13px;font-size:12.5px;line-height:1.5;white-space:pre-wrap;box-shadow:var(--shadow-md)">{{ bubble }}<span style="position:absolute;bottom:-6px;left:100px;width:10px;height:10px;background:var(--color-neutral-800);border-right:1px solid var(--color-neutral-700);border-bottom:1px solid var(--color-neutral-700);transform:rotate(45deg)"></span></div>
+        </sc-if>
+        <div style="transform: {{ flip }}">
+<svg viewBox="0 0 76 112" width="76" height="112">
+            <ellipse cx="38" cy="108" rx="28" ry="4" fill="rgba(0,0,0,.35)"></ellipse>
+            <g style="transform-box:fill-box;transform-origin:50% 0;animation: {{ legAnim1 }}"><rect x="27" y="86" width="10" height="20" rx="4" fill="#2e3247"></rect></g>
+            <g style="transform-box:fill-box;transform-origin:50% 0;animation: {{ legAnim2 }}"><rect x="40" y="86" width="10" height="20" rx="4" fill="#252a3d"></rect></g>
+            <path d="M20 68 Q20 56 30 56 L46 56 Q56 56 56 68 L57 84 Q57 91 50 91 L26 91 Q19 91 19 84 Z" fill="#39406b"></path>
+            <path d="M31 56 L38 63 L45 56 L42 56 L38 60 L34 56 Z" fill="#4a5390"></path>
+            <circle cx="48" cy="66" r="2" fill="#9184d9"></circle>
+            <rect x="14" y="59" width="8" height="24" rx="4" fill="#323860"></rect>
+            <ellipse cx="18" cy="84" rx="4" ry="3.5" fill="#e8b98f"></ellipse>
+            <g style="transform-box:fill-box;transform-origin:20% 12%;animation: {{ armAnim }}">
+              <rect x="54" y="59" width="8" height="24" rx="4" fill="#323860"></rect>
+              <ellipse cx="58" cy="84" rx="4" ry="3.5" fill="#e8b98f"></ellipse>
+              <sc-if value="{{ fixing }}" hint-placeholder-val="{{ false }}">
+                <g><rect x="56" y="80" width="4" height="14" rx="2" fill="#9aa0b8" transform="rotate(-35 58 82)"></rect><circle cx="55" cy="81" r="4.5" fill="none" stroke="#9aa0b8" stroke-width="3"></circle></g>
+              </sc-if>
+            </g>
+            <g style="animation:jbob 3s ease-in-out infinite">
+              <ellipse cx="15" cy="35" rx="4" ry="5" fill="#e3af85"></ellipse>
+              <ellipse cx="61" cy="35" rx="4" ry="5" fill="#e3af85"></ellipse>
+              <path d="M17 30 Q17 11 38 11 Q59 11 59 30 L59 40 Q59 57 38 59 Q17 57 17 40 Z" fill="#eec29c"></path>
+              <ellipse cx="26" cy="42" rx="4" ry="2.6" fill="#e59d80" opacity=".35"></ellipse>
+              <ellipse cx="50" cy="42" rx="4" ry="2.6" fill="#e59d80" opacity=".35"></ellipse>
+              <path d="M15 32 Q13 8 30 8 Q33 3 40 6 Q46 2 50 8 Q56 9 58 16 Q62 20 61 32 L60 30 Q58 18 50 17 Q44 13 38 16 Q30 12 25 18 Q18 19 16 32 Z" fill="#5b3e28"></path>
+              <path d="M17 34 Q19 50 26 56 Q32 61 38 61 Q44 61 50 56 Q57 50 59 34 Q60 52 52 60 Q45 66 38 66 Q31 66 24 60 Q16 52 17 34 Z" fill="#6b4a2f"></path>
+              <path d="M20 40 Q23 52 29 56 Q34 60 38 60 Q42 60 47 56 Q53 52 56 40 Q56 54 49 59 Q43 63 38 63 Q33 63 27 59 Q20 54 20 40 Z" fill="#5b3e28"></path>
+              <path d="M25 29 Q30 26 35 28 L34.5 30.5 Q30 29 26 31 Z" fill="#5b3e28"></path>
+              <path d="M51 29 Q46 26 41 28 L41.5 30.5 Q46 29 50 31 Z" fill="#5b3e28"></path>
+              <g style="transform-box:fill-box;transform-origin:center;animation:jeyes 4.5s infinite">
+                <circle cx="30" cy="34" r="2.6" fill="#8fb0c4"></circle>
+                <circle cx="46" cy="34" r="2.6" fill="#8fb0c4"></circle>
+                <circle cx="30" cy="34" r="1.2" fill="#2e3247"></circle>
+                <circle cx="46" cy="34" r="1.2" fill="#2e3247"></circle>
+                <circle cx="30.8" cy="33.2" r=".6" fill="#e9e9ed"></circle>
+                <circle cx="46.8" cy="33.2" r=".6" fill="#e9e9ed"></circle>
+              </g>
+              <path d="M38 35 Q37 40 36 41 Q38 43 40 42" fill="none" stroke="#dfa276" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M31 46 Q38 44 45 46 L44 48 Q38 46.5 32 48 Z" fill="#5b3e28"></path>
+              <sc-if value="{{ talking }}" hint-placeholder-val="{{ false }}">
+                <ellipse cx="38" cy="51" rx="5" ry="3.8" fill="#7a3f33" style="transform-box:fill-box;transform-origin:center;animation:jtalk .22s ease-in-out infinite alternate"></ellipse>
+              </sc-if>
+              <sc-if value="{{ notTalking }}" hint-placeholder-val="{{ true }}">
+                <g><path d="M30 48 Q38 55 46 48 Q44 53 38 53 Q32 53 30 48 Z" fill="#7a3f33"></path><path d="M32 48.5 Q38 51.5 44 48.5 L44 50 Q38 52 32 50 Z" fill="#f2ece4"></path></g>
+              </sc-if>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;padding:12px 24px 16px;border-top:1px solid var(--color-neutral-800);background:var(--color-neutral-900)">
+    <i class="ph ph-chat-circle-dots" style="color:var(--color-neutral-400)"></i>
+    <input class="input" value="{{ input }}" onChange="{{ onInput }}" onKeyDown="{{ onKey }}" placeholder="Ask Jared anything — he'll come over and answer…" style="flex:1"/>
+    <button class="btn btn-primary" onClick="{{ send }}" disabled="{{ loading }}"><i class="ph ph-paper-plane-tilt"></i> Ask</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;mode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;casual&quot;, &quot;business&quot;], &quot;default&quot;: &quot;casual&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Jared&quot;},
+  &quot;chaos&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Jared&quot;}
+}">
+class Component extends DCLogic {
+  APPS = [
+    { id: 'crm', name: 'Dealer CRM', icon: 'ph ph-address-book', x: 50, y: 46, w: 300, h: 150 },
+    { id: 'net', name: 'Network Settings', icon: 'ph ph-wifi-high', x: 430, y: 30, w: 280, h: 150 },
+    { id: 'sheet', name: 'Inventory.xlsx', icon: 'ph ph-table', x: 790, y: 60, w: 310, h: 150 }
+  ];
+  ISSUES = {
+    crm: "Bank portal timed out mid-deal",
+    net: "ACS is down. Again.",
+    sheet: "#REF! errors all over the place"
+  };
+  QUIPS = [
+    "He's got it. He's got it. He's got it.",
+    "Beautiful, that's fantastic.",
+    "It's real simple — was just the bridge.",
+    "No big deal. Told you I've got options.",
+    "Fixed. That one was wild."
+  ];
+  state = {
+    jx: 532, jy: 300, facing: 1, action: 'idle', fixTarget: null,
+    statuses: { crm: 'ok', net: 'error', sheet: 'ok' },
+    bubble: "Hey — I'm Jared. I keep this place running. Ask me anything, or just watch me put out fires.",
+    bubbleOn: true, talking: false,
+    input: '', loading: false, prompt: null, messages: [], stageScale: 1
+  };
+  timers = [];
+  later(fn, ms) { this.timers.push(setTimeout(fn, ms)); }
+  componentDidMount() {
+    this.onResize = () => {
+      const w = this.stageWrap ? this.stageWrap.clientWidth : window.innerWidth;
+      const scale = Math.min(1, w / 1140);
+      if (Math.abs(scale - this.state.stageScale) > 0.001) this.setState({ stageScale: scale });
+    };
+    this.stageWrapRef = el => { this.stageWrap = el; if (el && this.onResize) this.onResize(); };
+    window.addEventListener('resize', this.onResize);
+    this.later(() => this.onResize(), 50);
+    fetch('uploads/jared_chatbot_prompt.md').then(r => r.text()).then(prompt => this.setState({ prompt }))
+      .catch(() => this.setState({ prompt: 'You are Jared, a friendly 37-year-old small-town car dealership manager. Casual, direct, a storyteller.' }));
+    this.tick = setInterval(() => this.step(), 2500);
+    this.chaos = setInterval(() => this.breakSomething(), 12000);
+    this.later(() => this.setState({ bubbleOn: false }), 6000);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    clearInterval(this.tick); clearInterval(this.chaos);
+    this.timers.forEach(clearTimeout);
+    if (this.typer) clearInterval(this.typer);
+  }
+  breakSomething() {
+    if (this.props.chaos === false) return;
+    const ok = this.APPS.filter(a => this.state.statuses[a.id] === 'ok');
+    if (!ok.length) return;
+    const pick = ok[Math.floor(Math.random() * ok.length)];
+    this.setState({ statuses: { ...this.state.statuses, [pick.id]: 'error' } });
+  }
+  step() {
+    if (this.state.action !== 'idle' || this.state.loading) return;
+    const bad = this.APPS.find(a => this.state.statuses[a.id] === 'error');
+    if (!bad) return;
+    this.goFix(bad);
+  }
+  walkTo(x, y, cb) {
+    const facing = x >= this.state.jx ? 1 : -1;
+    this.setState({ action: 'walking', jx: x, jy: y, facing });
+    this.later(() => cb(), 1750);
+  }
+  goFix(app) {
+    this.setState({ fixTarget: app.id, bubbleOn: true, bubble: "I've got options. Hang on." });
+    this.walkTo(app.x + app.w / 2 - 38, app.y + app.h - 34, () => {
+      this.setState({ action: 'fixing', bubbleOn: false, statuses: { ...this.state.statuses, [app.id]: 'fixing' } });
+      this.later(() => {
+        const quip = this.QUIPS[Math.floor(Math.random() * this.QUIPS.length)];
+        this.setState({ statuses: { ...this.state.statuses, [app.id]: 'ok' }, action: 'idle', fixTarget: null, bubbleOn: true, bubble: quip });
+        this.later(() => { if (this.state.action === 'idle' && !this.state.talking) this.setState({ bubbleOn: false }); }, 3800);
+      }, 3200);
+    });
+  }
+  typeOut(full, done) {
+    if (this.typer) clearInterval(this.typer);
+    let i = 0;
+    this.setState({ talking: true, bubbleOn: true, bubble: '' });
+    this.typer = setInterval(() => {
+      i = Math.min(full.length, i + 2);
+      this.setState({ bubble: full.slice(0, i) });
+      if (i >= full.length) { clearInterval(this.typer); this.typer = null; this.setState({ talking: false }); if (done) done(); }
+    }, 24);
+  }
+  async ask(text) {
+    const q = (text || '').trim();
+    if (!q || this.state.loading) return;
+    const msgs = [...this.state.messages, { role: 'user', content: q }];
+    this.setState({ messages: msgs, input: '', loading: true, bubbleOn: true, bubble: 'Coming — hang on…', talking: false });
+    this.walkTo(532, 310, () => this.setState({ bubble: 'Thinking…' }));
+    try {
+      const mode = this.props.mode ?? 'casual';
+      const modeNote = mode === 'business'
+        ? '\n\nCurrent context: BUSINESS MODE — clean language, warm and polite.'
+        : '\n\nCurrent context: casual chat with a friend.';
+      const reply = await window.claude.complete({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 400,
+        system: (this.state.prompt || '') + modeNote + '\n\nKeep replies SHORT — under 60 words. You are a little on-screen character speaking in a speech bubble.',
+        messages: msgs
+      });
+      this.setState({ messages: [...msgs, { role: 'assistant', content: reply }], loading: false, action: 'idle' });
+      this.typeOut(reply);
+    } catch (e) {
+      this.setState({ loading: false, action: 'idle' });
+      this.typeOut("Ah hell, line dropped. Try me again in a second — I've got options.");
+    }
+  }
+  renderVals() {
+    const s = this.state;
+    const apps = this.APPS.map(a => {
+      const st = s.statuses[a.id];
+      return {
+        ...a,
+        badgeText: st === 'ok' ? 'Running' : st === 'fixing' ? "Jared's on it" : 'Down',
+        badgeColor: st === 'ok' ? 'var(--color-neutral-400)' : st === 'fixing' ? 'var(--color-accent-300)' : 'oklch(0.72 0.11 25)',
+        badgeIcon: st === 'ok' ? 'ph ph-check-circle' : st === 'fixing' ? 'ph ph-gear' : 'ph ph-warning',
+        badgeAnim: st === 'fixing' ? 'jspin 1.2s linear infinite' : st === 'error' ? 'jpulse 1.2s ease-in-out infinite' : 'none',
+        showIssue: st !== 'ok',
+        issue: st === 'fixing' ? 'Working the problem…' : this.ISSUES[a.id],
+        issueColor: st === 'fixing' ? 'var(--color-accent-300)' : 'oklch(0.72 0.11 25)'
+      };
+    });
+    const walking = s.action === 'walking';
+    const fixing = s.action === 'fixing';
+    return {
+      apps,
+      jx: s.jx, jy: s.jy,
+      flip: 'scaleX(' + s.facing + ')',
+      legAnim1: walking ? 'jleg .3s ease-in-out infinite alternate' : 'none',
+      legAnim2: walking ? 'jleg .3s ease-in-out -.15s infinite alternate-reverse' : 'none',
+      armAnim: fixing ? 'jfix .28s ease-in-out infinite alternate' : 'none',
+      fixing,
+      talking: s.talking, notTalking: !s.talking,
+      bubble: s.bubble, bubbleOn: s.bubbleOn,
+      statusLine: s.loading ? 'Thinking…' : fixing ? 'Fixing ' + (this.APPS.find(a => a.id === s.fixTarget) || {}).name : walking ? 'Heading over…' : 'All quiet. For now.',
+      input: s.input,
+      loading: s.loading,
+      onInput: e => this.setState({ input: e.target.value }),
+      onKey: e => { if (e.key === 'Enter') this.ask(this.state.input); },
+      send: () => this.ask(this.state.input),
+      stageTransform: 'scale(' + s.stageScale + ')',
+      stageWrapRef: this.stageWrapRef || (el => { this.stageWrap = el; })
+    };
+  }
+}
+</script>
+</body>
+</html>

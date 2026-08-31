@@ -1,0 +1,8 @@
+const jared=document.getElementById('jared'), bubble=document.getElementById('bubble'), status=document.getElementById('status');
+let timer;
+function say(text,state='talking'){clearTimeout(timer); if(!text)return; bubble.textContent=text; bubble.classList.remove('hidden'); setState(state); placeBubble(); timer=setTimeout(()=>bubble.classList.add('hidden'),Math.min(8000,2200+text.length*22));}
+function setState(s){jared.classList.remove('idle','walking','fixing','talking'); jared.classList.add(s||'idle');}
+function placeBubble(){const r=jared.getBoundingClientRect();const w=Math.min(320,bubble.offsetWidth||300);let left=Math.max(12,Math.min(innerWidth-w-12,r.right-w));let top=Math.max(12,r.top-(bubble.offsetHeight||70)-14);bubble.style.left=left+'px';bubble.style.top=top+'px';}
+function moveTo(point,modelSize){if(!point)return; const mw=modelSize?.[0]||1280,mh=modelSize?.[1]||720; const x=Math.max(10,Math.min(innerWidth-124,(point[0]/mw)*innerWidth-57)); const y=Math.max(10,Math.min(innerHeight-178,(point[1]/mh)*innerHeight-120)); const current=parseFloat(jared.style.left)||innerWidth-160; jared.style.transform=current>x?'scaleX(-1)':'scaleX(1)'; jared.style.left=x+'px';jared.style.top=y+'px';setState('walking');setTimeout(()=>setState('fixing'),1250);setTimeout(placeBubble,1250);}
+window.jared.onOverlay(ev=>{if(ev.type==='action'){if(ev.point)moveTo(ev.point,ev.modelSize);if(ev.label){status.textContent=ev.label;say(ev.label,ev.action==='type'?'talking':'fixing')}}else if(ev.type==='status'){status.textContent=ev.text||'';if(ev.state==='walking')setState('walking');else if(ev.state==='fixing')setState('fixing');else if(ev.state==='talking')say(ev.text,'talking');else setState('idle')}});
+addEventListener('resize',placeBubble);

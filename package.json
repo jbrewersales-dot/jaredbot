@@ -1,0 +1,40 @@
+{
+  "name": "jared-desktop-assistant",
+  "version": "0.1.0",
+  "description": "Always-on-top Jared desktop assistant with Claude computer use",
+  "main": "src/main/main.js",
+  "author": "Jared Brewer",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "pack": "electron-builder --dir",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.122.0"
+  },
+  "devDependencies": {
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.k2b.jaredassistant",
+    "productName": "Jared Desktop Assistant",
+    "files": [
+      "src/**/*",
+      "prompts/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": ["nsis"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

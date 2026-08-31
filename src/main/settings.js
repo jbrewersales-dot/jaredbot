@@ -24,7 +24,7 @@ function getSettings() {
   }
   return {
     apiKey,
-    model: raw.model || 'claude-sonnet-4-6',
+    model: raw.model || 'claude-opus-5',
     approvalMode: raw.approvalMode || 'task',
     maxIterations: Number(raw.maxIterations || 25),
     launchAtLogin: !!raw.launchAtLogin

@@ -38,8 +38,9 @@ The NSIS installer will be created under `dist/`.
 ## Important implementation notes
 
 - Desktop input is intentionally Windows-only and uses PowerShell + `user32.dll` for mouse/keyboard actions.
-- Claude is shown a resized screenshot, and coordinates are scaled back to the actual display.
-- The current default model is `claude-sonnet-4-6`. You can change it in Settings if your Anthropic account supports another compatible computer-use model.
+- Desktop control uses the `computer_toolset_20260801` computer-use toolset, which needs no beta header. Claude calls its member tools (`left_click`, `type`, `zoom`, ...) by name rather than through a single action field.
+- Claude is shown a screenshot downscaled to at most 1080p, and coordinates are scaled back to the actual display. `zoom` re-captures the requested region at native resolution instead of enlarging the downscaled image.
+- The current default model is `claude-opus-5`. If you change it in Settings, pick a model that supports `computer_toolset_20260801` (Claude Opus 5, Sonnet 5, Opus 4.8, Fable 5). Older models such as `claude-sonnet-4-6` only support the previous `computer_20251124` tool version and will fail against this build.
 - The app intentionally stops short of passwords, payments, destructive deletion, legal acceptance, external sends, or other consequential final actions. Those should stay human-confirmed.
 - For the safest deployment, run desktop automation in a dedicated Windows VM or least-privilege Windows account rather than giving an autonomous model unrestricted access to every sensitive system.
 

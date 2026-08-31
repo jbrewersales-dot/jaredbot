@@ -1,0 +1,33 @@
+# Builds the Jared Desktop Assistant Windows installer.
+# Run it from the Actions tab, then download the installer from the run's
+# Artifacts section at the bottom of the page.
+name: Build Windows Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "claude/new-session-m7cwku" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build installer
+        run: npm run dist:win
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jared-Desktop-Assistant-Installer
+          path: dist/*.exe
+          if-no-files-found: error
